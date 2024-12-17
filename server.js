@@ -15,6 +15,7 @@ const Client = new MongoClient(URL);
 const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
 app.post('/user', async (req, res) => {
+    console.log("Data USer",req.body)
     try {
         await Client.connect();
         const db = Client.db("myDatabase");
@@ -71,7 +72,8 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ message: "Invalid email or password." });
         }
 
-        res.status(200).json({ message: "Login successful." });
+        res.status(200).json({ message: "Login successful.",email});
+        console.log("meri jaan",email)
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ message: "Internal server error." });
@@ -82,6 +84,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/bookmark/add", async (req, res) => {
     const { email, bookmark } = req.body;
+    console.log("data recived",req.body)
     try {
         await Client.connect();
         const db = Client.db("myDatabase");
